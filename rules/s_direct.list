@@ -4,7 +4,3 @@ DOMAIN,time.windows.com
 DOMAIN-SUFFIX,trackerslist.com
 DOMAIN-SUFFIX,rockwell.com
 DOMAIN-KEYWORD,oxycontin
-# 宝可梦卡牌
-DOMAIN,player-api-prod.app-41283.com
-IP-CIDR,107.174.242.88/32,DIRECT
-IP-CIDR,64.188.29.239/32,DIRECT

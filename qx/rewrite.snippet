@@ -7,23 +7,23 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.comguide-acs.m.taobao.c
 # 红点
 ^https:\/\/api\.zhihu\.com\/(moments\/recent|drama\/living-info) url reject-200
 # 首页推荐广告
-^https:\/\/api\.zhihu\.com\/topstory\/recommend url script-response-body https://raw.githubusercontent.com/s-w1tch/ad-rules/refs/heads/main/scripts/zhihu.js
+^https:\/\/api\.zhihu\.com\/topstory\/recommend url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/reddit.js
 # 回答底部广告
 ^https:\/\/www\.zhihu\.com\/api\/v4\/answers\/\d+\/recommendations url reject-200
 # 问题中间广告
-^https:\/\/api\.zhihu\.com\/v4\/questions\/\d+\/answers url script-response-body https://raw.githubusercontent.com/s-w1tch/ad-rules/refs/heads/main/scripts/zhihu.js
+^https:\/\/api\.zhihu\.com\/v4\/questions\/\d+\/answers url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/zhihu.js
 
 # MARK: - 小黑盒 1.3.329
 # hostname = api.xiaoheihe.cn
 # 首页Banner
-^https:\/\/api\.xiaoheihe\.cn\/bbs\/app\/feeds\/banner url script-response-body https://raw.githubusercontent.com/s-w1tch/ad-rules/refs/heads/main/scripts/xiaoheihe.js
+^https:\/\/api\.xiaoheihe\.cn\/bbs\/app\/feeds\/banner url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/xiaoheihe.js
 # 游戏库Banner
-^https:\/\/api\.xiaoheihe\.cn\/game\/all_recommend\/v2 url script-response-body https://raw.githubusercontent.com/s-w1tch/ad-rules/refs/heads/main/scripts/xiaoheihe.js
+^https:\/\/api\.xiaoheihe\.cn\/game\/all_recommend\/v2 url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/xiaoheihe.js
 
 # MARK: - Reddit 2025.32.0
 # hostname = gql-fed.reddit.com
 # 首页和评论区广告
-^https:\/\/gql-fed\.reddit\.com url script-response-body https://raw.githubusercontent.com/s-w1tch/ad-rules/refs/heads/main/scripts/reddit.js
+^https:\/\/gql-fed\.reddit\.com url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/reddit.js
 
 # MARK: - 菜鸟裹裹-支付宝小程序
 # hostname = guide-acs.m.taobao.com, *.cainiao.com
@@ -46,7 +46,7 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.comguide-acs.m.taobao.c
 # ^https:\/\/api\.m\.jd\.com\/openUpgrade url reject-200
 # ^https:\/\/api\.m\.jd\.com\/api\/appPublishUpgrade url reject-200
 # # 个人页/欢迎页清理
-# ^https?:\/\/api\.m\.jd\.com\/client\.action url script-response-body https://raw.githubusercontent.com/s-w1tch/ad-rules/refs/heads/main/scripts/jingdong.js
+# ^https?:\/\/api\.m\.jd\.com\/client\.action url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong.js
 
 # MARK: - 贴吧 12.22.3
 # hostname = c.tieba.baidu.com
