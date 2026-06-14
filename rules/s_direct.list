@@ -5,3 +5,7 @@ DOMAIN-SUFFIX,trackerslist.com
 DOMAIN-SUFFIX,rockwell.com
 DOMAIN-KEYWORD,oxycontin
 DOMAIN-SUFFIX,right.com.cn
+# Tapo 远程访问必需
+DOMAIN-SUFFIX,tplinknbu.com
+DOMAIN-SUFFIX,tplinkcloud.com
+DOMAIN-SUFFIX,tapo.com
