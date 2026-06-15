@@ -1,4 +1,4 @@
-hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, guide-acs.m.taobao.com, *.cainiao.com, api.m.jd.com, c.tieba.baidu.com
+hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.cainiao.com, api.m.jd.com, *.360buyimg.com, c.tieba.baidu.com
 
 # MARK: -  知乎 6.62.0
 # hostname = *.zhihu.com
@@ -26,7 +26,7 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, guide-acs.m.taobao
 ^https:\/\/gql-fed\.reddit\.com url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/reddit.js
 
 # MARK: - 菜鸟裹裹-支付宝小程序
-# hostname = guide-acs.m.taobao.com, *.cainiao.com
+# hostname = *.taobao.com, *.cainiao.com
 # 每日任务
 ^https?:\/\/[a-zA-Z0-9_.-]+\.taobao\.com\/gw\/mtop\.cainiao\.pubaccount\.daily\.task\.activity\.task\.query url reject-200
 # 底部商品推广
@@ -35,7 +35,7 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, guide-acs.m.taobao
 ^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads url reject-200
 
 # MARK: - 京东 15.8.30
-# hostname = api.m.jd.com
+# hostname = api.m.jd.com, *.360buyimg.com
 # 禁用各种小广告
 # ^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=getShopHomeActivityInfo url reject-200
 # ^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=xview2Config url reject-200
