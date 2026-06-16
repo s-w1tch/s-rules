@@ -1,3 +1,5 @@
+IP-CIDR,107.174.242.0/24,DIRECT
+IP-CIDR,64.188.29.0/24,DIRECT
 DOMAIN-SUFFIX,aidameng.men
 DOMAIN-SUFFIX,sw1tch.men
 DOMAIN,time.windows.com
@@ -9,3 +11,5 @@ DOMAIN-SUFFIX,right.com.cn
 DOMAIN-SUFFIX,tplinknbu.com
 DOMAIN-SUFFIX,tplinkcloud.com
 DOMAIN-SUFFIX,tapo.com
+# 宝可梦卡牌
+DOMAIN,player-api-prod.app-41283.com
