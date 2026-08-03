@@ -1,5 +1,5 @@
-IP-CIDR,107.174.242.0/24,DIRECT
-IP-CIDR,64.188.29.0/24,DIRECT
+IP-CIDR,107.174.242.0/24
+IP-CIDR,64.188.29.0/24
 DOMAIN-SUFFIX,aidameng.men
 DOMAIN-SUFFIX,sw1tch.men
 DOMAIN,time.windows.com
@@ -7,6 +7,7 @@ DOMAIN-SUFFIX,trackerslist.com
 DOMAIN-SUFFIX,rockwell.com
 DOMAIN-KEYWORD,oxycontin
 DOMAIN-SUFFIX,right.com.cn
+DOMAIN-KEYWORD,xsus
 # Tapo 远程访问必需
 DOMAIN-SUFFIX,tplinknbu.com
 DOMAIN-SUFFIX,tplinkcloud.com
