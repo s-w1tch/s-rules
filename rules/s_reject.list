@@ -4,3 +4,48 @@ PROCESS-PATH-REGEX,.*Adobe.*
 
 # 阿里云 OSS 北京
 DOMAIN-SUFFIX,oss-cn-beijing.aliyuncs.com
+
+# 手机广告：穿山甲 / Pangle
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com
+DOMAIN-SUFFIX,pglstatp-toutiao.com
+DOMAIN,is.snssdk.com
+DOMAIN-SUFFIX,pangle.io
+
+# 手机广告：优量汇
+DOMAIN-SUFFIX,gdt.qq.com
+DOMAIN-SUFFIX,pgdt.gtimg.cn
+DOMAIN-SUFFIX,adsmind.gdtimg.com
+
+# 手机广告：百青藤 / 百度联盟
+DOMAIN-SUFFIX,mobads.baidu.com
+DOMAIN-SUFFIX,mobads-logs.baidu.com
+DOMAIN-SUFFIX,afd.baidu.com
+DOMAIN-SUFFIX,cpro.baidu.com
+DOMAIN-SUFFIX,pos.baidu.com
+
+# 手机广告：快手联盟
+DOMAIN-SUFFIX,ad.e.kuaishou.com
+DOMAIN,open.e.kuaishou.com
+
+# 手机广告：厂商联盟
+DOMAIN-SUFFIX,ads.cloud.huawei.com
+DOMAIN-SUFFIX,adsfs.oppomobile.com
+DOMAIN-SUFFIX,data.ads.oppomobile.com
+DOMAIN-SUFFIX,adx.ads.oppomobile.com
+DOMAIN-SUFFIX,adnet.vivo.com.cn
+DOMAIN-SUFFIX,adreq.vivo.com.cn
+DOMAIN-SUFFIX,adv.sec.miui.com
+DOMAIN-SUFFIX,adv.sec.intl.miui.com
+
+# 手机广告：聚合与交易
+DOMAIN-SUFFIX,sigmob.cn
+DOMAIN-SUFFIX,sigmob.com
+DOMAIN-SUFFIX,mintegral.com
+DOMAIN-SUFFIX,mintegral.net
+DOMAIN-SUFFIX,rayjump.com
+DOMAIN-SUFFIX,toponad.com
+DOMAIN-SUFFIX,anythinktech.com
+DOMAIN-SUFFIX,tanx.com
+DOMAIN-SUFFIX,ads.union.jd.com
+DOMAIN-SUFFIX,adinall.com
