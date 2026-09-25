@@ -1,5 +1,3 @@
-IP-CIDR,107.174.242.0/24
-IP-CIDR,64.188.29.0/24
 DOMAIN-SUFFIX,aidameng.men
 DOMAIN-SUFFIX,sw1tch.men
 DOMAIN,time.windows.com
@@ -14,3 +12,32 @@ DOMAIN-SUFFIX,tplinkcloud.com
 DOMAIN-SUFFIX,tapo.com
 # 宝可梦卡牌
 DOMAIN,player-api-prod.app-41283.com
+# 中国主流 AI：DeepSeek、通义千问、Kimi、智谱、豆包、MiniMax（直连）
+DOMAIN-SUFFIX,deepseek.com
+DOMAIN-SUFFIX,deepseeksvc.com
+DOMAIN-SUFFIX,qwen.ai
+DOMAIN-SUFFIX,qwenlm.ai
+DOMAIN-SUFFIX,qianwen.com
+DOMAIN-SUFFIX,tongyi.com
+DOMAIN-SUFFIX,kimi.com
+DOMAIN-SUFFIX,kimi.ai
+DOMAIN-SUFFIX,moonshot.cn
+DOMAIN-SUFFIX,moonshot.ai
+DOMAIN-SUFFIX,z.ai
+DOMAIN-SUFFIX,zhipuai.cn
+DOMAIN-SUFFIX,chatglm.cn
+DOMAIN-SUFFIX,doubao.com
+DOMAIN-SUFFIX,doubaocdn.com
+DOMAIN-SUFFIX,hailuoai.com
+DOMAIN-SUFFIX,minimaxi.com
+# 中国其他主流 AI：文心、腾讯元宝/混元、讯飞星火、可灵、Coze、Trae（直连）
+DOMAIN-SUFFIX,yiyan.baidu.com
+DOMAIN-SUFFIX,yuanbao.tencent.com
+DOMAIN-SUFFIX,hunyuan.tencent.com
+DOMAIN-SUFFIX,xinghuo.xfyun.cn
+DOMAIN-SUFFIX,klingai.com
+DOMAIN-SUFFIX,kling-ai.com
+DOMAIN-SUFFIX,coze.com
+DOMAIN-SUFFIX,coze.cn
+DOMAIN-SUFFIX,trae.ai
+DOMAIN-SUFFIX,trae.cn
