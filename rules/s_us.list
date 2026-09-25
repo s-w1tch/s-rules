@@ -1,5 +1,17 @@
+# Hostloc
 DOMAIN-SUFFIX,hostloc.com
+
+# X
 DOMAIN-SUFFIX,x.com
 DOMAIN-SUFFIX,twitter.com
+
+# Ultra Mobile：站点与 PayGo
 DOMAIN-KEYWORD,ultramobile
+DOMAIN-SUFFIX,ultra.me
+
+# Ultra Mobile WiFi Calling：T-Mobile ePDG，不是 ultramobile 域名
+DOMAIN-SUFFIX,mnc260.mcc310.pub.3gppnetwork.org
+DOMAIN-SUFFIX,mnc240.mcc310.pub.3gppnetwork.org
+
+# PayPal
 DOMAIN-KEYWORD,paypal

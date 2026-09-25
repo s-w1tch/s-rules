@@ -1,3 +1,6 @@
+# Adobe
 DOMAIN-SUFFIX,adobe.io
-DOMAIN-SUFFIX,oss-cn-beijing.aliyuncs.com
 PROCESS-PATH-REGEX,.*Adobe.*
+
+# 阿里云 OSS 北京
+DOMAIN-SUFFIX,oss-cn-beijing.aliyuncs.com

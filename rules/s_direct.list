@@ -1,17 +1,27 @@
+# 自有域名
 DOMAIN-SUFFIX,aidameng.men
 DOMAIN-SUFFIX,sw1tch.men
+
+# Windows 时间同步
 DOMAIN,time.windows.com
+
+# Tracker 列表
 DOMAIN-SUFFIX,trackerslist.com
+
+# Rockwell
 DOMAIN-SUFFIX,rockwell.com
-DOMAIN-KEYWORD,oxycontin
+
+# 恩山
 DOMAIN-SUFFIX,right.com.cn
-DOMAIN-KEYWORD,xsus
+
 # Tapo 远程访问必需
 DOMAIN-SUFFIX,tplinknbu.com
 DOMAIN-SUFFIX,tplinkcloud.com
 DOMAIN-SUFFIX,tapo.com
+
 # 宝可梦卡牌
 DOMAIN,player-api-prod.app-41283.com
+
 # 中国主流 AI：DeepSeek、通义千问、Kimi、智谱、豆包、MiniMax（直连）
 DOMAIN-SUFFIX,deepseek.com
 DOMAIN-SUFFIX,deepseeksvc.com
@@ -19,6 +29,7 @@ DOMAIN-SUFFIX,qwen.ai
 DOMAIN-SUFFIX,qwenlm.ai
 DOMAIN-SUFFIX,qianwen.com
 DOMAIN-SUFFIX,tongyi.com
+DOMAIN-SUFFIX,dashscope.aliyuncs.com
 DOMAIN-SUFFIX,kimi.com
 DOMAIN-SUFFIX,kimi.ai
 DOMAIN-SUFFIX,moonshot.cn
@@ -26,10 +37,13 @@ DOMAIN-SUFFIX,moonshot.ai
 DOMAIN-SUFFIX,z.ai
 DOMAIN-SUFFIX,zhipuai.cn
 DOMAIN-SUFFIX,chatglm.cn
+DOMAIN-SUFFIX,bigmodel.cn
 DOMAIN-SUFFIX,doubao.com
 DOMAIN-SUFFIX,doubaocdn.com
+DOMAIN,ark.cn-beijing.volces.com
 DOMAIN-SUFFIX,hailuoai.com
 DOMAIN-SUFFIX,minimaxi.com
+
 # 中国其他主流 AI：文心、腾讯元宝/混元、讯飞星火、可灵、Coze、Trae（直连）
 DOMAIN-SUFFIX,yiyan.baidu.com
 DOMAIN-SUFFIX,yuanbao.tencent.com

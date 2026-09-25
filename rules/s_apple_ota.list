@@ -1,5 +1,14 @@
+# 系统更新目录
 DOMAIN,mesu.apple.com
 DOMAIN,gdmf.apple.com
+DOMAIN,gdmf-ados.apple.com
+DOMAIN,xp.apple.com
+DOMAIN,gg.apple.com
+
+# 系统更新下载
 DOMAIN-SUFFIX,updates.cdn-apple.com
 DOMAIN-SUFFIX,updates-http.cdn-apple.com
 DOMAIN-SUFFIX,appldnld.apple.com
+
+# 附加组件更新
+DOMAIN,gsra.apple.com
