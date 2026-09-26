@@ -14,6 +14,9 @@ DOMAIN-SUFFIX,rockwell.com
 # 恩山
 DOMAIN-SUFFIX,right.com.cn
 
+# 小黑盒
+DOMAIN-SUFFIX,max-c.com
+
 # Tapo 远程访问必需
 DOMAIN-SUFFIX,tplinknbu.com
 DOMAIN-SUFFIX,tplinkcloud.com
