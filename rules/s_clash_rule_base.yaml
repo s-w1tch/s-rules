@@ -62,7 +62,6 @@ dns:
     - +.pool.ntp.org
     - +.ntp.org.cn
     - time1.cloud.tencent.com
-    - +.sw1tch.men
     - +.aidameng.men
 
 proxies: []
