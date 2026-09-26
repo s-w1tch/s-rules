@@ -22,36 +22,21 @@ DOMAIN-SUFFIX,tapo.com
 # 宝可梦卡牌
 DOMAIN,player-api-prod.app-41283.com
 
-# 中国主流 AI：DeepSeek、通义千问、Kimi、智谱、豆包、MiniMax（直连）
-DOMAIN-SUFFIX,deepseek.com
-DOMAIN-SUFFIX,deepseeksvc.com
-DOMAIN-SUFFIX,qwen.ai
-DOMAIN-SUFFIX,qwenlm.ai
-DOMAIN-SUFFIX,qianwen.com
-DOMAIN-SUFFIX,tongyi.com
-DOMAIN-SUFFIX,dashscope.aliyuncs.com
-DOMAIN-SUFFIX,kimi.com
-DOMAIN-SUFFIX,kimi.ai
-DOMAIN-SUFFIX,moonshot.cn
-DOMAIN-SUFFIX,moonshot.ai
-DOMAIN-SUFFIX,z.ai
-DOMAIN-SUFFIX,zhipuai.cn
-DOMAIN-SUFFIX,chatglm.cn
-DOMAIN-SUFFIX,bigmodel.cn
-DOMAIN-SUFFIX,doubao.com
-DOMAIN-SUFFIX,doubaocdn.com
-DOMAIN,ark.cn-beijing.volces.com
-DOMAIN-SUFFIX,hailuoai.com
-DOMAIN-SUFFIX,minimaxi.com
+# 笔记
+PROCESS-NAME,Simplenote.exe
 
-# 中国其他主流 AI：文心、腾讯元宝/混元、讯飞星火、可灵、Coze、Trae（直连）
-DOMAIN-SUFFIX,yiyan.baidu.com
-DOMAIN-SUFFIX,yuanbao.tencent.com
-DOMAIN-SUFFIX,hunyuan.tencent.com
-DOMAIN-SUFFIX,xinghuo.xfyun.cn
-DOMAIN-SUFFIX,klingai.com
-DOMAIN-SUFFIX,kling-ai.com
-DOMAIN-SUFFIX,coze.com
-DOMAIN-SUFFIX,coze.cn
-DOMAIN-SUFFIX,trae.ai
-DOMAIN-SUFFIX,trae.cn
+# 游戏
+PROCESS-NAME,MonsterHunterWilds.exe
+PROCESS-NAME,dota2.exe
+PROCESS-NAME,helldivers.exe
+PROCESS-NAME,helldivers2.exe
+PROCESS-NAME,Diablo IV.exe
+
+# 下载工具
+PROCESS-NAME,qbittorrent.exe
+
+# 游戏加速器
+PROCESS-NAME,uu.exe
+
+# 游戏平台
+PROCESS-NAME,steam.exe
