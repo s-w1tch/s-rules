@@ -63,6 +63,10 @@ dns:
     - +.ntp.org.cn
     - time1.cloud.tencent.com
     - +.aidameng.men
+    # GitHub 使用真实 IP，避免 Gitea 等服务的地址安全检查拒绝 Fake-IP。
+    - +.github.com
+    - +.githubusercontent.com
+    - +.githubassets.com
 
 proxies: []
 proxy-groups: []
