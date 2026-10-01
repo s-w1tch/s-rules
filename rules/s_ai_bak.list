@@ -1,0 +1,46 @@
+# AI 搜索与聚合：Perplexity、Poe、OpenRouter、You.com
+DOMAIN-SUFFIX,perplexity.ai
+DOMAIN-SUFFIX,perplexity.com
+DOMAIN-SUFFIX,pplx.ai
+DOMAIN-SUFFIX,poe.com
+DOMAIN-SUFFIX,poecdn.net
+DOMAIN-SUFFIX,openrouter.ai
+DOMAIN-SUFFIX,you.com
+
+# Meta AI：Muse、模型 API、研究与开发者平台
+DOMAIN-SUFFIX,meta.ai
+DOMAIN-SUFFIX,muse.ai
+DOMAIN-SUFFIX,ai.meta.com
+DOMAIN-SUFFIX,developer.meta.com
+
+# 开源模型与推理平台：Mistral、Cohere、Groq、Hugging Face、Cerebras
+DOMAIN-SUFFIX,mistral.ai
+DOMAIN-SUFFIX,cohere.ai
+DOMAIN-SUFFIX,cohere.com
+DOMAIN-SUFFIX,groq.com
+DOMAIN-SUFFIX,huggingface.co
+DOMAIN-SUFFIX,hf.co
+DOMAIN-SUFFIX,hf.space
+DOMAIN-SUFFIX,cerebras.ai
+
+# AI 编程：Cursor、Windsurf、Codeium、Devin、Kiro、CodeRabbit
+DOMAIN-SUFFIX,cursor.com
+DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,cursorapi.com
+DOMAIN-SUFFIX,codeium.com
+DOMAIN-SUFFIX,codeiumdata.com
+DOMAIN-SUFFIX,windsurf.com
+DOMAIN-SUFFIX,windsurf.build
+DOMAIN-SUFFIX,devin.ai
+DOMAIN-SUFFIX,kiro.dev
+DOMAIN-SUFFIX,coderabbit.ai
+
+# 图像、视频与音频 AI
+DOMAIN-SUFFIX,midjourney.com
+DOMAIN-SUFFIX,elevenlabs.io
+DOMAIN-SUFFIX,elevenlabs.com
+DOMAIN-SUFFIX,clipdrop.co
+DOMAIN-SUFFIX,openart.ai
+DOMAIN-SUFFIX,novelai.net
+DOMAIN-SUFFIX,runwayml.com
+DOMAIN-SUFFIX,stability.ai
