@@ -1,38 +1,86 @@
-# OpenAI：ChatGPT、Sora、API
+# 有明确服务 / 模型地区限制的 AI 服务及配套域名；由 s_template.ini 加载到 AI 平台组
+# 分类依据是地区与账号资格，不是内容审查或 IP 风控强弱排名；固定出口不能替代服务资格
+# 编程工具可能只有部分模型受限；配套静态资源、文档和遥测不代表同等严格
+# 共享登录仅按已确认的精确主机匹配，不扩大到整个 Google、GitHub、AWS 或第三方登录域名
+
+# OpenAI：ChatGPT、Sora、Codex 与 API；登录、API、WebSocket 子域名由后缀规则覆盖
 DOMAIN-SUFFIX,openai.com
 DOMAIN-SUFFIX,chatgpt.com
 DOMAIN-SUFFIX,chat.com
 DOMAIN-SUFFIX,sora.com
 DOMAIN-SUFFIX,oaistatic.com
 DOMAIN-SUFFIX,oaiusercontent.com
+# OpenAI 专用静态资源与功能配置；来源：OpenAI 网络建议中的域名清单
+# https://help.openai.com/en/articles/9247338-network-recommendations-for-chatgpt-errors-on-web-and-apps
+DOMAIN-SUFFIX,openaimerge.com
+DOMAIN-SUFFIX,oaistatsig.com
 
-# Anthropic：Claude
+# Anthropic：Claude 网页、Claude Code、API 与用户内容；优先保持出口稳定
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,claudeusercontent.com
 
-# Google AI：Gemini、AI Studio、NotebookLM、DeepMind
+# Google AI：Gemini、AI Studio 与 Gemini API；存在地区、年龄及账号验证要求
+# ai.google.dev 是配套开发者文档，不代表文档站本身与推理接口同等严格
 DOMAIN-SUFFIX,gemini.google.com
 DOMAIN-SUFFIX,gemini.google
 DOMAIN-SUFFIX,aistudio.google.com
 DOMAIN-SUFFIX,ai.google.dev
 DOMAIN-SUFFIX,generativeai.google
 DOMAIN-SUFFIX,generativelanguage.googleapis.com
+
+# Google NotebookLM / Gemini Notebook：网页服务有明确支持地区，移动端可用范围另行规定
+# 来源：https://support.google.com/notebooklm/answer/16164461?hl=en
 DOMAIN-SUFFIX,notebooklm.google.com
 DOMAIN-SUFFIX,notebooklm.google
-DOMAIN-SUFFIX,deepmind.com
+DOMAIN-SUFFIX,notebook.google
 
-# Microsoft 与 GitHub AI：Copilot
+# Microsoft Copilot：消费端不在中国大陆及部分受禁运市场提供 / 支持，香港不属于该中国例外
+# 来源：https://support.microsoft.com/en-us/microsoft-copilot/supported-regions-and-languages-in-microsoft-copilot
+# 本组规则须先于 Bing / Microsoft 通用规则加载；不据此认定其 IP 风控与 Claude 同级
 DOMAIN-SUFFIX,copilot.microsoft.com
 DOMAIN-SUFFIX,copilot.cloud.microsoft
 DOMAIN-SUFFIX,copilot.com
-DOMAIN-SUFFIX,githubcopilot.com
 
-# xAI：Grok
-DOMAIN-SUFFIX,grok.com
-DOMAIN-SUFFIX,x.ai
-DOMAIN-SUFFIX,auth.x.ai
-DOMAIN-SUFFIX,accounts.x.ai
-DOMAIN-SUFFIX,console.x.ai
-DOMAIN-SUFFIX,api.x.ai
+# Meta AI 与 Meta Model API：meta.ai 已覆盖 api.meta.ai / dev.meta.ai；API 有专门地域政策
+# API 的禁止地区不能直接套用于全部 Meta 消费端产品；研究 / 通用开发者门户保留在备选
+# 来源：https://dev.meta.ai/legal/geographic-use-policy
+DOMAIN-SUFFIX,meta.ai
+# Muse：Meta 的个人 AI Agent，应用 / 网页与订阅处于有限开放，地区及账号资格另行判断
+# 来源：https://www.meta.com/help/artificial-intelligence/1303670544995562/
+DOMAIN-SUFFIX,muse.ai
+
+# Cursor：部分模型遵循供应商地区限制，不代表整个 Cursor 在当地不可用
+# 来源：https://cursor.com/docs/account/regions 、https://cursor.com/docs/enterprise/network-configuration
+DOMAIN-SUFFIX,cursor.com
+DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,cursorapi.com
+DOMAIN-SUFFIX,cursor-cdn.com
+DOMAIN-SUFFIX,cursorvm.com
+# Cursor 新登录流程的精确主机；不是将 Grok / xAI 全平台归为严格服务
+# 来源：https://cursor.com/help/troubleshooting/sign-in-domains
+# 与备选中的 x.ai / grok.com 后缀有意重叠，仅将这些登录主机固定到 AI 组
+DOMAIN,accounts.spacex.ai
+DOMAIN,accounts.x.ai
+DOMAIN,auth.x.ai
+DOMAIN,auth.grok.com
+DOMAIN,auth.grokusercontent.com
+DOMAIN,auth.grokipedia.com
+
+# Windsurf / Codeium（Cognition）：Anthropic 模型明确受其支持地区约束，不能推断所有模型同样受限
+# 来源：https://devin.ai/windsurf/acceptable-use-policy
+DOMAIN-SUFFIX,codeium.com
+DOMAIN-SUFFIX,codeiumdata.com
+DOMAIN-SUFFIX,windsurf.com
+DOMAIN-SUFFIX,windsurf.build
+
+# Kiro：模型可用性遵循供应商地域要求；付费账单地址资格与模型资格是不同条件
+# 来源：https://kiro.dev/faq/ 、https://kiro.dev/docs/privacy-and-security/firewalls/
+DOMAIN-SUFFIX,kiro.dev
+# 专用遥测配套，不代表遥测本身有同等地区限制
+DOMAIN-SUFFIX,kiro.aws.dev
+# 官方仍要求保留的旧 Kiro / Amazon Q 服务端点；精确匹配，不泛化整个 amazonaws.com
+DOMAIN,q.us-east-1.amazonaws.com
+DOMAIN,q.eu-central-1.amazonaws.com
+# Google / GitHub / Builder ID 等共享登录、SSO 和 Stripe 支付仍由其他规则处理，不保证全流程同出口

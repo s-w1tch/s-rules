@@ -1,19 +1,43 @@
-# AI 搜索与聚合：Perplexity、Poe、OpenRouter、You.com
+# 备选 AI 域名：暂未确认需要纳入核心地区 / 模型限制分流，或仅为研究门户与配套服务
+# 保留在备选不代表没有地区限制、验证码或账号风控；一般制裁条款不能用于风控强弱排名
+# 当前 s_template.ini 不加载本文件，实际流量由其他规则或兜底策略处理
+# 仅列服务专用域名；共享登录、支付、CDN 与云平台端点需结合实际连接日志判断
+
+# Google DeepMind：官网与研究内容，不是 Gemini 推理接口
+DOMAIN-SUFFIX,deepmind.com
+
+# GitHub Copilot：模型服务、建议请求、代码来源检测与遥测
+# 来源：https://docs.github.com/en/copilot/reference/copilot-allowlist-reference
+# githubcopilot.com 已覆盖 individual / business / enterprise 等计划子域名
+# GitHub 登录与账号 API 使用共享域名，不扩大匹配整个 github.com 或 githubusercontent.com
+DOMAIN-SUFFIX,githubcopilot.com
+DOMAIN,copilot-proxy.githubusercontent.com
+DOMAIN,origin-tracker.githubusercontent.com
+DOMAIN,copilot-telemetry.githubusercontent.com
+DOMAIN,copilot-reports.github.com
+
+# xAI：Grok 网页、登录、控制台与 API；x.ai 已覆盖 auth / accounts / console / api 子域名
+# Cursor 所需的部分精确登录主机已单列在 s_ai.list；此处保留其他 Grok / xAI 流量为备选
+DOMAIN-SUFFIX,grok.com
+DOMAIN-SUFFIX,x.ai
+
+# AI 搜索与聚合：Perplexity、Poe、OpenRouter、You.com；按实际访问情况选择出口
 DOMAIN-SUFFIX,perplexity.ai
 DOMAIN-SUFFIX,perplexity.com
 DOMAIN-SUFFIX,pplx.ai
+# Poe 的订阅购买有地区清单，且网站 / 应用商店范围不同；不等于整个免费服务的访问白名单
+# 来源：https://help.poe.com/hc/en-us/articles/19945140063636-Poe-Subscriptions-FAQs
 DOMAIN-SUFFIX,poe.com
 DOMAIN-SUFFIX,poecdn.net
 DOMAIN-SUFFIX,openrouter.ai
 DOMAIN-SUFFIX,you.com
 
-# Meta AI：Muse、模型 API、研究与开发者平台
-DOMAIN-SUFFIX,meta.ai
-DOMAIN-SUFFIX,muse.ai
+# Meta 研究与通用开发者门户：Model API / 控制台由核心组中的 meta.ai 覆盖
 DOMAIN-SUFFIX,ai.meta.com
 DOMAIN-SUFFIX,developer.meta.com
 
 # 开源模型与推理平台：Mistral、Cohere、Groq、Hugging Face、Cerebras
+# 尚未确认这些平台存在需统一纳入核心组的严格访问地区白名单；不代表限制宽松
 DOMAIN-SUFFIX,mistral.ai
 DOMAIN-SUFFIX,cohere.ai
 DOMAIN-SUFFIX,cohere.com
@@ -23,24 +47,29 @@ DOMAIN-SUFFIX,hf.co
 DOMAIN-SUFFIX,hf.space
 DOMAIN-SUFFIX,cerebras.ai
 
-# AI 编程：Cursor、Windsurf、Codeium、Devin、Kiro、CodeRabbit
-DOMAIN-SUFFIX,cursor.com
-DOMAIN-SUFFIX,cursor.sh
-DOMAIN-SUFFIX,cursorapi.com
-DOMAIN-SUFFIX,codeium.com
-DOMAIN-SUFFIX,codeiumdata.com
-DOMAIN-SUFFIX,windsurf.com
-DOMAIN-SUFFIX,windsurf.build
+# AI 编程：Devin、CodeRabbit；未确认需整体纳入核心地区限制组的官方依据
 DOMAIN-SUFFIX,devin.ai
-DOMAIN-SUFFIX,kiro.dev
+# Devin 交互式 IDE / Desktop 的专用域名，devin.ai 后缀不覆盖它
+# 来源：https://docs.devin.ai/enterprise/deployment/overview
+DOMAIN-SUFFIX,devinapps.com
 DOMAIN-SUFFIX,coderabbit.ai
 
 # 图像、视频与音频 AI
 DOMAIN-SUFFIX,midjourney.com
+# ElevenLabs：官方明确封锁部分制裁地区，不据此推断中国大陆 / 香港受限或 IP 风控同核心组
+# 来源：https://help.elevenlabs.io/hc/en-us/articles/22497891312401
 DOMAIN-SUFFIX,elevenlabs.io
 DOMAIN-SUFFIX,elevenlabs.com
+# Clipdrop：当前 API 产品归属 Jasper；保留旧入口并补当前 API、管理入口与文档的精确主机
+# 来源：https://clipdrop.co/apis 、https://developers.jasper.ai/reference/removebackground
 DOMAIN-SUFFIX,clipdrop.co
+DOMAIN,api.jasper.ai
+DOMAIN,app.jasper.ai
+DOMAIN,developers.jasper.ai
 DOMAIN-SUFFIX,openart.ai
 DOMAIN-SUFFIX,novelai.net
 DOMAIN-SUFFIX,runwayml.com
 DOMAIN-SUFFIX,stability.ai
+# Stability 的 Stable Audio 产品入口，不被 stability.ai 后缀覆盖
+# 来源：https://stability.ai/
+DOMAIN-SUFFIX,stableaudio.com
