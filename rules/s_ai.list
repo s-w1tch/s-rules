@@ -46,8 +46,13 @@ DOMAIN-SUFFIX,poecdn.net
 DOMAIN-SUFFIX,openrouter.ai
 DOMAIN-SUFFIX,you.com
 
-# 开源模型与推理平台：Meta、Mistral、Cohere、Groq、Hugging Face、Cerebras
+# Meta AI：Muse、模型 API、研究与开发者平台
 DOMAIN-SUFFIX,meta.ai
+DOMAIN-SUFFIX,muse.ai
+DOMAIN-SUFFIX,ai.meta.com
+DOMAIN-SUFFIX,developer.meta.com
+
+# 开源模型与推理平台：Mistral、Cohere、Groq、Hugging Face、Cerebras
 DOMAIN-SUFFIX,mistral.ai
 DOMAIN-SUFFIX,cohere.ai
 DOMAIN-SUFFIX,cohere.com
