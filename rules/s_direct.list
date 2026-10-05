@@ -24,6 +24,15 @@ DOMAIN-SUFFIX,tplinknbu.com
 DOMAIN-SUFFIX,tplinkcloud.com
 DOMAIN-SUFFIX,tapo.com
 
+# 米家
+DOMAIN-SUFFIX,mijia.tech
+DOMAIN-SUFFIX,io.mi.com
+DOMAIN-SUFFIX,home.mi.com
+DOMAIN-SUFFIX,miot-spec.org
+# 米家使用的账号登录与资源接口（共享服务，仅匹配具体域名）
+DOMAIN,account.xiaomi.com
+DOMAIN,cdn.cnbj1.fds.api.mi-img.com
+
 # 宝可梦卡牌
 DOMAIN,player-api-prod.app-41283.com
 
