@@ -19,6 +19,10 @@ DOMAIN-SUFFIX,max-c.com
 # 闲鱼
 DOMAIN-SUFFIX,goofish.com
 
+# DeepSeek
+DOMAIN-SUFFIX,deepseek.com
+DOMAIN-SUFFIX,deepseeksvc.com
+
 # Tapo 远程访问必需
 DOMAIN-SUFFIX,tplinknbu.com
 DOMAIN-SUFFIX,tplinkcloud.com
