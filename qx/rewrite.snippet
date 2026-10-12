@@ -1,3 +1,4 @@
+# 自有重写规则；自写脚本位于 qx/scripts，第三方备份集中在 qx/backup。
 hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.cainiao.com, api.m.jd.com, *.360buyimg.com, c.tieba.baidu.com
 
 # MARK: -  知乎 6.62.0
@@ -7,7 +8,7 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.ca
 # 红点
 ^https:\/\/api\.zhihu\.com\/(moments\/recent|drama\/living-info) url reject-200
 # 首页推荐广告
-^https:\/\/api\.zhihu\.com\/topstory\/recommend url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/reddit.js
+^https:\/\/api\.zhihu\.com\/topstory\/recommend url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/zhihu.js
 # 回答底部广告
 ^https:\/\/www\.zhihu\.com\/api\/v4\/answers\/\d+\/recommendations url reject-200
 # 问题中间广告

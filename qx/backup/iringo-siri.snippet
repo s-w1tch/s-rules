@@ -1,0 +1,37 @@
+# 来源：https://github.com/NSRingo/Siri/releases/latest/download/iRingo.Siri.snippet
+# 第三方备份；脚本位于 qx/backup/scripts，源地址仅用于记录。
+#!name =  iRingo: ⭕ Siri
+#!desc = iOS 18⬆️ & macOS 15⬆️\n全面自定义「Siri 请求」功能。\n⚠️ 不含自定义「Siri 建议」功能。
+#!openUrl = http://boxjs.com/#/app/iRingo.Siri
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/Siri/siri
+#!icon = https://developer.apple.com/assets/elements/icons/siri/siri-128x128.png
+#!category =  iRingo
+#!date = 2024-12-24 04:25:06
+#!version = 4.2.7
+
+#[rewrite_local]
+# ⭕ Siri.Search.request
+# 脚本来源：https://github.com/NSRingo/Siri/releases/download/v4.2.7/request.bundle.js
+^https?:\/\/(api-siri|api2|api-.+)\.smoot\.apple\.com\/search url script-request-header https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/backup/scripts/NSRingo-request.bundle.js
+# ⭕ Siri.SiriSearch.request
+# 脚本来源：https://github.com/NSRingo/Siri/releases/download/v4.2.7/request.bundle.js
+^https?:\/\/(guzzoni|api2|api-.+)\.smoot\.apple\.com\/apple\.parsec\.siri\.v2alpha\.SiriSearch\/SiriSearch url script-request-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/backup/scripts/NSRingo-request.bundle.js
+# 🔍 Safari.SafariSearch.request
+# 脚本来源：https://github.com/NSRingo/Siri/releases/download/v4.2.7/request.bundle.js
+^https?:\/\/api-safari(-.+)?\.smoot\.apple\.com\/apple\.parsec\.safari\.v1alpha\.SafariSearch\/SafariSearch url script-request-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/backup/scripts/NSRingo-request.bundle.js
+# 🔍 Lookup.LookupSearch.request
+# 脚本来源：https://github.com/NSRingo/Siri/releases/download/v4.2.7/request.bundle.js
+^https?:\/\/api-lookup(-.+)?\.smoot\.apple\.com\/apple\.parsec\.lookup\.v1alpha\.LookupSearch\/LookupSearch url script-request-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/backup/scripts/NSRingo-request.bundle.js
+# 🔍 Visualsearch.VisualSearch.request
+# 脚本来源：https://github.com/NSRingo/Siri/releases/download/v4.2.7/request.bundle.js
+^https?:\/\/(api2|api-.+)\.smoot\.apple\.com\/apple\.parsec\.visualsearch\.v2\.VisualSearch\/VisualSearch url script-request-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/backup/scripts/NSRingo-request.bundle.js
+# 🔍 ResponseFramework.Engagement.EngagementSearch.request
+# 脚本来源：https://github.com/NSRingo/Siri/releases/download/v4.2.7/request.bundle.js
+^https?:\/\/(api-.+)\.smoot\.apple\.com\/apple\.parsec\.responseframework\.engagement\.v1alpha\.EngagementSearch\/EngagementSearch url script-request-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/backup/scripts/NSRingo-request.bundle.js
+# 🔍 Spotlight.ZkwSuggestService.request
+# 脚本来源：https://github.com/NSRingo/Siri/releases/download/v4.2.7/request.bundle.js
+^https?:\/\/(api-.+)\.smoot\.apple\.com\/apple\.parsec\.spotlight\.v1alpha\.ZkwSuggestService\/Suggest url script-request-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/backup/scripts/NSRingo-request.bundle.js
+
+#[mitm]
+hostname = guzzoni.smoot.apple.com, api2.smoot.apple.com, api-*.smoot.apple.com
