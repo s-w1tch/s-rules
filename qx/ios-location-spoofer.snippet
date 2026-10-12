@@ -1,0 +1,11 @@
+hostname = gs-loc.apple.com, gs-loc-cn.apple.com, gsp-ssl.ls.apple.com, bluedot.is.autonavi.com, bluedot.is.autonavi.com.gds.alibabadns.com
+
+# MARK: - iOS Location Spoofer
+# 来源：https://github.com/mekos2772/ios-location-spoofer
+# 通过 MITM 改写 Apple 网络定位响应；s-service 默认不启用此资源。
+# 独立定位资源，不并入默认启用的 rewrite.snippet。
+# 使用时手动启用此重写资源，并开启 MITM、安装及完全信任 QX CA 证书。
+# 上游 QX 脚本仅使用内置配置，默认坐标为 Apple Park（37.3349, -122.00902）。
+# 上游明确提示 iOS 27 正式版无法使用；本资源不保证系统定位生效。
+
+^https?:\/\/(?:gs-loc(?:-cn)?\.apple\.com|gsp-ssl\.ls\.apple\.com|bluedot\.is\.autonavi\.com(?:\.gds\.alibabadns\.com)?)\/clls\/wloc url script-response-body https://raw.githubusercontent.com/mekos2772/ios-location-spoofer/main/location-spoofer-qx.js
