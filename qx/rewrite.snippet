@@ -51,17 +51,13 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.ca
 ^https?:\/\/m15\.360buyimg\.com\/mobilecms\/jfs url reject-img
 ^https?:\/\/storage\.360buyimg\.com\/.*scs_jingEgg url reject-img
 ^https?:\/\/(?:[\w-]+\.)*360buyimg\.com\/(?:ad|ads|adt|advert|advertise)\/ url reject-img
-# 首页 / 详情 / 搜索 / 个人页响应清理：删除广告、浮层、弹窗、直播小窗字段
-^https?:\/\/api\.m\.jd\.com\/client\.action\?.*functionId=(welcomeHome|wareBusiness|search|personinfoBusiness)(&|$) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong-ads.js
+# 首页 / 详情 / 搜索 / 个人页 / 购物车 / 订单 / 消息 响应清理
+# 只删除广告位、浮层、浮球、弹窗、直播小窗容器，保留商品、价格、订单、优惠券权益
+^https?:\/\/api\.m\.jd\.com\/client\.action\?.*functionId=(welcomeHome|wareBusiness|search|personinfoBusiness|cart|cartList|getCart|orderList|orderDetail|messageList)(&|$) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong-ads.js
 # 小时购广告与首页营销接口
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?.*functionId=(hourlyGoAD|hourlyGoAd|hourlyGoPopup)(&|$) url reject-dict
 # 直播小窗数据兜底：functionId 不固定，按关键词兜底
 ^https?:\/\/api\.m\.jd\.com\/(?:client\.action|api)\?.*[Ff]unctionId=[A-Za-z0-9_]*([Mm]ini[Ll]ive|[Ll]ive[Ww]indow|[Ff]loat[Ll]ive)(&|$) url reject-dict
-# # 禁用更新检查
-# ^https:\/\/api\.m\.jd\.com\/openUpgrade url reject-200
-# ^https:\/\/api\.m\.jd\.com\/api\/appPublishUpgrade url reject-200
-# 旧版个人页/欢迎页脚本，已由 jingdong-ads.js 合并覆盖，保留备查
-# ^https?:\/\/api\.m\.jd\.com\/client\.action url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong.js
 
 # MARK: - 贴吧 12.22.3
 # hostname = c.tieba.baidu.com
