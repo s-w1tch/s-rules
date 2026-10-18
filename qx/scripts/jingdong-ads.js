@@ -27,13 +27,17 @@ try {
 
 const functionId = (url.match(/[?&]functionId=([^&]+)/) || [])[1] || '';
 
+// 调试开关：改 true 后，每个进入脚本的京东请求都会记一条日志（用于确认 MITM 是否生效）。
+const DEBUG = false;
+if (DEBUG) {
+  console.log('[JD-Ads] 进入脚本 functionId=' + (functionId || '(空)') + ' ' + url.slice(0, 140));
+}
+
 if (functionId === 'start') {
   console.log('[JD-Ads] 拦截开屏 functionId=start');
   $done({ body: '{}' });
   return;
 }
-
-console.log('[JD-Ads] 命中 functionId=' + functionId);
 
 // 原包中确认存在的广告/浮层/弹窗字段。
 const DROP_KEYS = new Set([
@@ -175,7 +179,15 @@ try {
     }
   }
 
-  console.log('[JD-Ads] 完成 ' + functionId + ' 共删除 ' + removed + ' 项');
+  if (removed === 0) {
+    // 没有命中广告字段时不改动响应，避免影响登录、支付等业务。
+    if (DEBUG) {
+      console.log('[JD-Ads] 无广告字段，放行 functionId=' + (functionId || '(空)'));
+    }
+    $done({});
+    return;
+  }
+  console.log('[JD-Ads] 完成 ' + (functionId || '(空)') + ' 共删除 ' + removed + ' 项');
 } catch (e) {
   console.log('[JD-Ads] 清理异常，原样放行: ' + e);
   $done({});
