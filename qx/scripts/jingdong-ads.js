@@ -13,7 +13,7 @@
  *   - 弹窗投放：functionId=resources_delivery（JDResoureBitManager 的 NXView 投放计划）。
  *
  * 只删除广告位、浮层、浮球、弹窗、直播小窗容器，保留商品、价格、购物车、订单、优惠券权益。
- * 明确的拦截与字段删除会写 console.log；解析失败或异常时原样放行。
+ * 日志仅汇总成功改写的广告区块及数量；未改动、解析失败或异常时静默放行。
  */
 
 (function () {
@@ -44,26 +44,29 @@ function readFunctionId(value) {
 // $request.body 在部分版本可用，这里仅作为补充，不依赖它。
 const functionId = readFunctionId(url) || readFunctionId($request.body);
 const functionLabel = /^[A-Za-z0-9_-]{1,80}$/.test(functionId) ? functionId : '(unknown)';
-const host = (url.match(/^https?:\/\/([A-Za-z0-9.-]+)(?=[:/?#]|$)/) || [])[1] || '(unknown)';
-const DEBUG = true;
-if (DEBUG) {
-  console.log('[JD-Ads] INSPECT host=' + host + ' functionId=' + functionLabel);
+let removed = 0;
+const blockedBlocks = new Map();
+
+function recordBlock(label, count = 1) {
+  removed += count;
+  blockedBlocks.set(label, (blockedBlocks.get(label) || 0) + count);
 }
 
-// 广告专用接口：直接返回空对象，且不受响应体是否可解析影响。
-// 这些拦截独立打日志，便于确认规则确实命中。
-const AD_APIS = new Set([
-  'start',                 // 开屏
-  'resources_delivery',    // JDResoureBitManager NXView 投放计划
-  'getShopHomeActivityInfo',
-  'getShopHomeExtendInfo',
-  'xview2Config'
+function logBlocked() {
+  const summary = Array.from(blockedBlocks, ([label, count]) => label + ' ' + count + ' 项').join('；');
+  console.log('[JD-Ads] 已屏蔽：' + summary + ' | 接口：' + functionLabel);
+}
+
+const AD_APIS = new Map([
+  ['start', '开屏广告'],
+  ['resources_delivery', '资源投放弹窗'],
+  ['getShopHomeActivityInfo', '店铺活动推广'],
+  ['getShopHomeExtendInfo', '店铺扩展推广'],
+  ['xview2Config', 'XView 弹窗']
 ]);
 if (AD_APIS.has(functionId)) {
-  const label = functionId === 'start' ? 'BLOCK-START'
-    : functionId === 'resources_delivery' ? 'BLOCK-RESDELIVERY'
-    : 'BLOCK-ADAPI';
-  console.log('[JD-Ads] ' + label + ' host=' + host + ' functionId=' + functionLabel);
+  recordBlock(AD_APIS.get(functionId));
+  logBlocked();
   $done({ body: '{}' });
   return;
 }
@@ -77,7 +80,6 @@ let data;
 try {
   data = JSON.parse(body);
 } catch (e) {
-  console.log('[JD-Ads] JSON 解析失败，原样放行');
   $done({});
   return;
 }
@@ -118,20 +120,34 @@ const DROP_KEYS = new Set([
 // 明确的广告楼层类型，避免误删推荐、商品、活动等正常楼层。
 const AD_FLOOR_TYPE = /(^|[^a-z])(ad|ads|advert|advertise|float|popup|popUp|mkt|marketing|banner|live|retention|subsidy)([^a-z]|$)/i;
 
-let removed = 0;
-let logged = 0;
-const MAX_LOGS = 40;
-
-function logOnce(message) {
-  if (logged < MAX_LOGS) {
-    console.log('[JD-Ads] ' + message);
-    logged += 1;
+function blockName(key) {
+  if (/^launchAd/.test(key)) {
+    return '开屏广告';
   }
+  if (/^(?:float|tnEntryFloatView|iconFloatModel|openLoginFloatModel)/.test(key)) {
+    return '悬浮区块';
+  }
+  if (/^(?:marketing|navMkt)/.test(key)) {
+    return '营销条';
+  }
+  if (/^(?:commonPopup|indexPopup|platRetention|retention|subsidy|platCloseBottom|popup|popUp)/.test(key)) {
+    return '营销弹窗';
+  }
+  if (/^(?:live|miniLive)/.test(key)) {
+    return '直播区块';
+  }
+  if (/^hourlyGo/.test(key)) {
+    return '小时购推广';
+  }
+  if (/^(?:couponBall|surpriseCouponLayer|redPacketBanner)$/.test(key)) {
+    return '领券浮球及红包横幅';
+  }
+  return '广告位及素材';
 }
 
-function scrub(node, path) {
+function scrub(node) {
   if (Array.isArray(node)) {
-    node.forEach((item, index) => scrub(item, path + '[' + index + ']'));
+    node.forEach((item) => scrub(item));
     return;
   }
   if (!node || typeof node !== 'object') {
@@ -140,11 +156,10 @@ function scrub(node, path) {
   for (const key of Object.keys(node)) {
     if (DROP_KEYS.has(key)) {
       delete node[key];
-      removed += 1;
-      logOnce('删除字段 ' + path + '.' + key);
+      recordBlock(blockName(key));
       continue;
     }
-    scrub(node[key], path + '.' + key);
+    scrub(node[key]);
   }
 }
 
@@ -154,22 +169,20 @@ function dropAdFloors(container) {
     if (!Array.isArray(list)) {
       continue;
     }
-    container[listKey] = list.filter((floor, index) => {
+    container[listKey] = list.filter((floor) => {
       if (!floor || typeof floor !== 'object') {
         return true;
       }
       const type = String(floor.type || floor.floorType || floor.templateType || '');
       if (AD_FLOOR_TYPE.test(type)) {
-        removed += 1;
-        logOnce('删除广告楼层 ' + listKey + '[' + index + '] type=' + type);
+        recordBlock('广告楼层');
         return false;
       }
       const floorData = floor.data;
       if (floorData && typeof floorData === 'object' && !Array.isArray(floorData)) {
         const keys = Object.keys(floorData);
         if (keys.length > 0 && keys.every((key) => DROP_KEYS.has(key))) {
-          removed += 1;
-          logOnce('删除广告楼层 ' + listKey + '[' + index + '] 仅含广告字段');
+          recordBlock('广告楼层');
           return false;
         }
       }
@@ -178,8 +191,9 @@ function dropAdFloors(container) {
   }
 }
 
+let rewrittenBody;
 try {
-  scrub(data, '$');
+  scrub(data);
   dropAdFloors(data);
 
   // 首页欢迎页：搜索框上方消费券楼层。
@@ -187,8 +201,7 @@ try {
     const before = data.floorList.length;
     data.floorList = data.floorList.filter((item) => !(item && item.iconText));
     if (data.floorList.length !== before) {
-      removed += before - data.floorList.length;
-      logOnce('删除欢迎页消费券楼层 ' + (before - data.floorList.length) + ' 个');
+      recordBlock('首页消费券推广', before - data.floorList.length);
     }
   }
 
@@ -196,16 +209,14 @@ try {
   if (functionId === 'search') {
     if (data.guideShopping) {
       delete data.guideShopping;
-      removed += 1;
-      logOnce('删除搜索 AI 导购 guideShopping');
+      recordBlock('搜索 AI 导购');
     }
     if (Array.isArray(data.wareInfo)) {
       for (const item of data.wareInfo) {
         const shopBefore = item && item.configDatas && item.configDatas.shopBefore;
         if (Array.isArray(shopBefore) && shopBefore[0] && shopBefore[0].describe === '直播中') {
           item.configDatas.shopBefore = [];
-          removed += 1;
-          logOnce('删除搜索商品直播中标签');
+          recordBlock('搜索直播标签');
         }
       }
     }
@@ -216,26 +227,22 @@ try {
     for (const floor of data.floors) {
       if (floor && floor.data && floor.data.liveInfo) {
         delete floor.data.liveInfo;
-        removed += 1;
-        logOnce('删除详情直播入口 liveInfo');
+        recordBlock('详情直播入口');
       }
     }
   }
 
   if (removed === 0) {
     // 没有命中广告字段时不改动响应，避免影响登录、支付等业务。
-    if (DEBUG) {
-      console.log('[JD-Ads] PASS functionId=' + functionLabel);
-    }
     $done({});
     return;
   }
-  console.log('[JD-Ads] 完成 ' + functionLabel + ' 共删除 ' + removed + ' 项');
+  rewrittenBody = JSON.stringify(data);
 } catch (e) {
-  console.log('[JD-Ads] 清理异常，原样放行: ' + e);
   $done({});
   return;
 }
 
-$done({ body: JSON.stringify(data) });
+logBlocked();
+$done({ body: rewrittenBody });
 })();
