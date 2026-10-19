@@ -36,30 +36,35 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.ca
 # 通用广告请求
 ^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads url reject-200
 
-# MARK: - 京东 iOS 15.3.30（com.360buy.jdmobile / 170234）
+# MARK: - 京东 iOS 15.8.30（com.360buy.jdmobile / 170515）
 # 覆盖：开屏、首页浮球/浮层、右上角悬浮、搜索框下营销条、营销弹窗、
-#       直播小窗、小时购广告、Feed 广告、小程序广告、领券浮球
-# 字段依据：原包 Mach-O 真实键名 + 客户端补丁点，详见 qx/scripts/jingdong-ads.js
-# 开屏广告：functionId=start 走 promotionServerUrl（pro.m.jd.com 等），不限 api.m.jd.com
-# 开屏数据有本地缓存，首次拦截后需重启/清缓存才会彻底不再出现
-^https?:\/\/[\w.-]*\.jd\.com\/(?:client\.action|api)\?.*functionId=start(&|$) url reject-dict
-^https?:\/\/[\w.-]*\.360buy\.com\/(?:client\.action|api)\?.*functionId=start(&|$) url reject-dict
-# 首页活动楼层 / 店铺活动
-^https?:\/\/api\.m\.jd\.com\/client\.action\?.*functionId=getShopHomeActivityInfo(&|$) url reject-dict
-^https?:\/\/api\.m\.jd\.com\/client\.action\?.*functionId=getShopHomeExtendInfo(&|$) url reject-dict
-^https?:\/\/api\.m\.jd\.com\/client\.action\?.*functionId=xview2Config(&|$) url reject-dict
-# 广告素材图片：只拦明确广告目录，避免商品图被 reject 成白图
-^https?:\/\/m15\.360buyimg\.com\/mobilecms\/jfs url reject-img
+#       直播小窗、Feed 广告、小程序广告、领券浮球、资源投放 NXView 弹窗
+# 字段依据：170515 原包 Mach-O 真实键名与调用链，详见 qx/scripts/jingdong-ads.js
+#
+# 开屏调用链（170515 实测）：
+#   +[LaunchAnimationManagerHelper launchRequestModel] 设置 functionId=start，
+#   URL = SetupManager.promotionServerUrl + "start"，默认模板以 ?functionId= 结尾，
+#   请求为 POST 表单；响应顶层字段是 images。
+#   因此按 URL 的 functionId=start 匹配是有效的；脚本会返回 {} 并打印 BLOCK-START。
+#
+# 已确认的本地缓存（QX 无法删除）：
+#   -[LaunchAnimationManager localAdModelArray] 读取
+#   Library/Caches/adviewModePath/startViewModel_*.data；
+#   -[LaunchAnimationManager getStartImage:] 会直接播放缓存模型。
+#   所以拦截网络后，设备上已缓存的开屏仍可能播放一次或数次。
+#   清除京东 App 缓存/重装后，规则才能阻止重新下载并缓存。
+#
+# 广告专用接口统一交给脚本处理，以便在 QX 日志中看到真实拦截记录：
+#   start / resources_delivery / getShopHomeActivityInfo /
+#   getShopHomeExtendInfo / xview2Config
+# 通用响应清理只删广告字段，未命中时原样放行，不影响登录、购物车、订单、支付。
+^https?:\/\/[\w.-]*\.jd\.com\/(?:client\.action|api)(?:\?|$) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong-ads.js
+^https?:\/\/[\w.-]*\.360buy\.com\/(?:client\.action|api)(?:\?|$) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong-ads.js
+# 广告素材图片：只拦明确广告目录，避免商品图被 reject 成白图。
+# 已移除 m15.360buyimg.com/mobilecms/jfs：这是通用移动 CMS 图路径，
+# 170515 中存在 50 处 mobilecms/jfs 引用，继续拦截会把正常商品/活动图变白图。
 ^https?:\/\/storage\.360buyimg\.com\/.*scs_jingEgg url reject-img
 ^https?:\/\/(?:[\w-]+\.)*360buyimg\.com\/(?:ad|ads|adt|advert|advertise)\/ url reject-img
-# 小时购广告与首页营销接口（先拦截，优先于下方兜底脚本）
-^https?:\/\/api\.m\.jd\.com\/client\.action\?.*functionId=(hourlyGoAD|hourlyGoAd|hourlyGoPopup)(&|$) url reject-dict
-# 直播小窗数据兜底：functionId 不固定，按关键词兜底
-^https?:\/\/api\.m\.jd\.com\/(?:client\.action|api)\?.*[Ff]unctionId=[A-Za-z0-9_]*([Mm]ini[Ll]ive|[Ll]ive[Ww]indow|[Ff]loat[Ll]ive)(&|$) url reject-dict
-# 通用响应清理兜底：覆盖全部京东 client.action / api 请求
-# 只删除广告位、浮层、浮球、弹窗、直播小窗容器，未命中广告字段时原样放行
-# 注意：本行必须放在 reject 规则之后，QX 按顺序匹配，先命中先生效
-^https?:\/\/[\w.-]*\.m\.jd\.com\/(?:client\.action|api)(?:\?|$) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong-ads.js
 
 # MARK: - 贴吧 12.22.3
 # hostname = c.tieba.baidu.com

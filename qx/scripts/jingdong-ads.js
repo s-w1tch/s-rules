@@ -1,15 +1,72 @@
 /*
- * 京东 iOS 15.3.30 广告与悬浮层清理（Quantumult X）
+ * 京东 iOS 15.8.30（com.360buy.jdmobile / 170515）广告与悬浮层清理（Quantumult X）
  *
- * 依据：原包 Mach-O 真实键名与首页楼层路径（如 floors[refId=basefloorinfo].data.commonPopup /
- * commonPopup_dynamic / floatLayer），以及客户端 84 个广告补丁点覆盖的广告类型。
+ * 依据：170515 原包 Mach-O 真实键名与真实调用链：
+ *   - 开屏：+[LaunchAnimationManagerHelper launchRequestModel] 设置 functionId=start，
+ *     URL = promotionServerUrl + "start"（默认模板以 ?functionId= 结尾），POST 表单；
+ *     响应顶层字段为 images（+[LaunchAnimationManagerHelper jdAdShowModelArray:]）。
+ *   - 开屏缓存：-[LaunchAnimationManager localAdModelArray] 读取
+ *     Library/Caches/adviewModePath/startViewModel_*.data，
+ *     -[LaunchAnimationManager getStartImage:] 会直接播放缓存模型。
+ *   - 悬浮/弹窗：commonPopup / commonPopup_dynamic / floatLayer / floatTopModels /
+ *     tnEntryFloatView / marketingView / liveInfoAndProduct / miniLive / liveWindow 等。
+ *   - 弹窗投放：functionId=resources_delivery（JDResoureBitManager 的 NXView 投放计划）。
+ *
  * 只删除广告位、浮层、浮球、弹窗、直播小窗容器，保留商品、价格、购物车、订单、优惠券权益。
- * 每次命中都会写 console.log，可在 QX 日志中核对；解析失败或异常时原样放行。
+ * 明确的拦截与字段删除会写 console.log；解析失败或异常时原样放行。
  */
 
 (function () {
 const url = $request.url;
 const body = $response.body;
+
+function readFunctionId(value) {
+  if (typeof value !== 'string') {
+    return '';
+  }
+  const match = value.match(/(?:^|[?&])functionId=([^&]*)/);
+  if (match) {
+    try {
+      return decodeURIComponent(match[1].replace(/\+/g, ' '));
+    } catch (error) {
+      return '';
+    }
+  }
+  try {
+    const payload = JSON.parse(value);
+    return payload && typeof payload.functionId === 'string' ? payload.functionId : '';
+  } catch (error) {
+    return '';
+  }
+}
+
+// QX 官方文档只保证 script-response-body 提供 $request.url/$request.headers 等；
+// $request.body 在部分版本可用，这里仅作为补充，不依赖它。
+const functionId = readFunctionId(url) || readFunctionId($request.body);
+const functionLabel = /^[A-Za-z0-9_-]{1,80}$/.test(functionId) ? functionId : '(unknown)';
+const host = (url.match(/^https?:\/\/([A-Za-z0-9.-]+)(?=[:/?#]|$)/) || [])[1] || '(unknown)';
+const DEBUG = true;
+if (DEBUG) {
+  console.log('[JD-Ads] INSPECT host=' + host + ' functionId=' + functionLabel);
+}
+
+// 广告专用接口：直接返回空对象，且不受响应体是否可解析影响。
+// 这些拦截独立打日志，便于确认规则确实命中。
+const AD_APIS = new Set([
+  'start',                 // 开屏
+  'resources_delivery',    // JDResoureBitManager NXView 投放计划
+  'getShopHomeActivityInfo',
+  'getShopHomeExtendInfo',
+  'xview2Config'
+]);
+if (AD_APIS.has(functionId)) {
+  const label = functionId === 'start' ? 'BLOCK-START'
+    : functionId === 'resources_delivery' ? 'BLOCK-RESDELIVERY'
+    : 'BLOCK-ADAPI';
+  console.log('[JD-Ads] ' + label + ' host=' + host + ' functionId=' + functionLabel);
+  $done({ body: '{}' });
+  return;
+}
 
 if (!body) {
   $done({});
@@ -25,20 +82,6 @@ try {
   return;
 }
 
-const functionId = (url.match(/[?&]functionId=([^&]+)/) || [])[1] || '';
-
-// 调试开关：改 true 后，每个进入脚本的京东请求都会记一条日志（用于确认 MITM 是否生效）。
-const DEBUG = false;
-if (DEBUG) {
-  console.log('[JD-Ads] 进入脚本 functionId=' + (functionId || '(空)') + ' ' + url.slice(0, 140));
-}
-
-if (functionId === 'start') {
-  console.log('[JD-Ads] 拦截开屏 functionId=start');
-  $done({ body: '{}' });
-  return;
-}
-
 // 原包中确认存在的广告/浮层/弹窗字段。
 const DROP_KEYS = new Set([
   // 广告位与素材
@@ -49,8 +92,8 @@ const DROP_KEYS = new Set([
   'adModel', 'adModels', 'adItemArray',
   'advertiseChannel', 'advertiseRequest', 'advertiseView', 'advertisementData',
   'advertising', 'advertisingView', 'sugAdvertiseVO',
-  // 首页浮球 / 浮层 / 悬浮
-  'floatTopModels', 'floatLayerList', 'floats', 'floatLayer', 'floatList',
+  // 首页浮球 / 浮层 / 悬浮（170515 仍存在：floatLayer/floatTopModels/floatTop/tnEntryFloatView）
+  'floatTopModels', 'floatTop', 'floatLayerList', 'floats', 'floatLayer', 'floatList',
   'floatType', 'floatTypeNormal', 'floatTypeIs916',
   'floatView', 'floatWindow', 'floatBall', 'floatBallView', 'floatData',
   'floatingButton', 'floatingList', 'floatingView', 'floatingWidget', 'floatingFloor',
@@ -182,12 +225,12 @@ try {
   if (removed === 0) {
     // 没有命中广告字段时不改动响应，避免影响登录、支付等业务。
     if (DEBUG) {
-      console.log('[JD-Ads] 无广告字段，放行 functionId=' + (functionId || '(空)'));
+      console.log('[JD-Ads] PASS functionId=' + functionLabel);
     }
     $done({});
     return;
   }
-  console.log('[JD-Ads] 完成 ' + (functionId || '(空)') + ' 共删除 ' + removed + ' 项');
+  console.log('[JD-Ads] 完成 ' + functionLabel + ' 共删除 ' + removed + ' 项');
 } catch (e) {
   console.log('[JD-Ads] 清理异常，原样放行: ' + e);
   $done({});
