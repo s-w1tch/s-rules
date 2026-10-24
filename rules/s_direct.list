@@ -19,6 +19,10 @@ DOMAIN-SUFFIX,max-c.com
 # 闲鱼
 DOMAIN-SUFFIX,goofish.com
 
+# 元气骑士
+DOMAIN-SUFFIX,chillyroom.com
+DOMAIN-SUFFIX,chillyroom.games
+
 # DeepSeek
 DOMAIN-SUFFIX,deepseek.com
 DOMAIN-SUFFIX,deepseeksvc.com
