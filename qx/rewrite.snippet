@@ -55,7 +55,7 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.ca
 #   清除京东 App 缓存/重装后，规则才能阻止重新下载并缓存。
 #
 # 广告专用接口统一交给脚本处理，以便在 QX 日志中看到真实拦截记录：
-#   start / resources_delivery / getShopHomeActivityInfo /
+#   start / resources_delivery / resources_delivery_sdk / getShopHomeActivityInfo /
 #   getShopHomeExtendInfo / xview2Config
 # 通用响应清理只删广告字段，未命中时原样放行，不影响登录、购物车、订单、支付。
 ^https?:\/\/[\w.-]*\.jd\.com\/(?:client\.action|api)(?:\?|$) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong-ads.js

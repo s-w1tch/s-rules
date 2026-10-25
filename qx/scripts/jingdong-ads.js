@@ -10,7 +10,7 @@
  *     -[LaunchAnimationManager getStartImage:] 会直接播放缓存模型。
  *   - 悬浮/弹窗：commonPopup / commonPopup_dynamic / floatLayer / floatTopModels /
  *     tnEntryFloatView / marketingView / liveInfoAndProduct / miniLive / liveWindow 等。
- *   - 弹窗投放：functionId=resources_delivery（JDResoureBitManager 的 NXView 投放计划）。
+ *   - 弹窗投放：functionId=resources_delivery_sdk（JDResoureBitManager 的 NXView 投放计划）。
  *
  * 只删除广告位、浮层、浮球、弹窗、直播小窗容器，保留商品、价格、购物车、订单、优惠券权益。
  * 日志仅汇总成功改写的广告区块及数量；未改动、解析失败或异常时静默放行。
@@ -60,6 +60,7 @@ function logBlocked() {
 const AD_APIS = new Map([
   ['start', '开屏广告'],
   ['resources_delivery', '资源投放弹窗'],
+  ['resources_delivery_sdk', '资源投放弹窗'],
   ['getShopHomeActivityInfo', '店铺活动推广'],
   ['getShopHomeExtendInfo', '店铺扩展推广'],
   ['xview2Config', 'XView 弹窗']
