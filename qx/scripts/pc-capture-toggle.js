@@ -4,6 +4,14 @@
   const stateKey = "pc-capture.previous-state";
   const captureNode = "PC-Capture";
   const modes = ["filter", "all_proxy", "all_direct"];
+  let outcome;
+
+  function report(status, message) {
+    const escaped = message.replace(/[&<>]/g, character => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;"
+    })[character]);
+    outcome = { title: "PC Capture: " + status, htmlMessage: "<p>" + escaped + "</p>" };
+  }
 
   async function send(action, content) {
     const message = content === undefined ? { action } : { action, content };
@@ -28,7 +36,7 @@
       }
       await restore(state);
       $prefs.removeValueForKey(stateKey);
-      $notify("PC Capture", "OFF", "Previous mode and proxy restored.");
+      report("OFF", "Previous mode and proxy restored.");
       return;
     }
 
@@ -55,10 +63,10 @@
       $prefs.removeValueForKey(stateKey);
       throw error;
     }
-    $notify("PC Capture", "ON", "TCP traffic uses the PC. Tap again to restore.");
+    report("ON", "TCP traffic uses the PC. Tap again to restore.");
   } catch (error) {
-    $notify("PC Capture", "Failed", error.message || String(error));
+    report("Failed", error.message || String(error));
   } finally {
-    $done();
+    $done(outcome);
   }
 })();
