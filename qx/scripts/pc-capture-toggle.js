@@ -48,8 +48,21 @@
     const mode = typeof running === "string" ? running : running && running.running_mode;
     const policies = await send("get_policy_state");
     const proxy = policies && policies.proxy && policies.proxy[1];
-    if (!modes.includes(mode) || typeof proxy !== "string" || !proxy || proxy === captureNode) {
-      throw new Error("Select your normal proxy and mode before enabling capture.");
+    if (!modes.includes(mode)) {
+      throw new Error("Cannot read QX running mode. API result: " + JSON.stringify(running));
+    }
+    if (typeof proxy !== "string" || !proxy) {
+      throw new Error(
+        "Cannot read the built-in proxy selection. Mode: " + mode +
+        ". Proxy state: " + JSON.stringify(policies && policies.proxy) +
+        ". Available policy names: " + Object.keys(policies || {}).join(", ")
+      );
+    }
+    if (proxy === captureNode) {
+      throw new Error(
+        "PC-Capture is already selected, but no previous state was saved. " +
+        "Select your usual node for the built-in proxy, return to your usual mode, and retry."
+      );
     }
     const state = { mode, proxy };
     if (!$prefs.setValueForKey(JSON.stringify(state), stateKey)) {
