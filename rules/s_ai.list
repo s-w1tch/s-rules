@@ -21,6 +21,14 @@ DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,claudeusercontent.com
 
+# xAI / Grok：网页、登录、控制台、API 与用户内容；按需统一到 AI 平台组
+# 来源：https://docs.x.ai/developers/api-reference 、https://cursor.com/help/troubleshooting/sign-in-domains
+# grok.x.com 为 X 内的 Grok 专用入口，不扩大匹配整个 x.com
+DOMAIN-SUFFIX,grok.com
+DOMAIN-SUFFIX,x.ai
+DOMAIN-SUFFIX,grokusercontent.com
+DOMAIN-SUFFIX,grok.x.com
+
 # Google AI：Gemini、AI Studio 与 Gemini API；存在地区、年龄及账号验证要求
 # ai.google.dev 是配套开发者文档，不代表文档站本身与推理接口同等严格
 DOMAIN-SUFFIX,gemini.google.com
@@ -58,14 +66,9 @@ DOMAIN-SUFFIX,cursor.sh
 DOMAIN-SUFFIX,cursorapi.com
 DOMAIN-SUFFIX,cursor-cdn.com
 DOMAIN-SUFFIX,cursorvm.com
-# Cursor 新登录流程的精确主机；不是将 Grok / xAI 全平台归为严格服务
+# Cursor 新登录流程的其他精确主机；Grok / xAI 登录由上方后缀规则覆盖
 # 来源：https://cursor.com/help/troubleshooting/sign-in-domains
-# 与备选中的 x.ai / grok.com 后缀有意重叠，仅将这些登录主机固定到 AI 组
 DOMAIN,accounts.spacex.ai
-DOMAIN,accounts.x.ai
-DOMAIN,auth.x.ai
-DOMAIN,auth.grok.com
-DOMAIN,auth.grokusercontent.com
 DOMAIN,auth.grokipedia.com
 
 # Windsurf / Codeium（Cognition）：Anthropic 模型明确受其支持地区约束，不能推断所有模型同样受限

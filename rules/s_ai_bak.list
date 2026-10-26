@@ -16,11 +16,6 @@ DOMAIN,origin-tracker.githubusercontent.com
 DOMAIN,copilot-telemetry.githubusercontent.com
 DOMAIN,copilot-reports.github.com
 
-# xAI：Grok 网页、登录、控制台与 API；x.ai 已覆盖 auth / accounts / console / api 子域名
-# Cursor 所需的部分精确登录主机已单列在 s_ai.list；此处保留其他 Grok / xAI 流量为备选
-DOMAIN-SUFFIX,grok.com
-DOMAIN-SUFFIX,x.ai
-
 # AI 搜索与聚合：Perplexity、Poe、OpenRouter、You.com；按实际访问情况选择出口
 DOMAIN-SUFFIX,perplexity.ai
 DOMAIN-SUFFIX,perplexity.com
