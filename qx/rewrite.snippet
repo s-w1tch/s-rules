@@ -1,6 +1,7 @@
 # 自有重写规则；自写脚本位于 qx/scripts，第三方备份集中在 qx/backup。
 # hostname 为全局配置，所有域名必须合并在这一行，重复声明会互相覆盖。
-hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.cainiao.com, *.m.jd.com, *.jd.com, *.360buyimg.com, *.360buy.com, c.tieba.baidu.com
+# 京东业务/支付域名排除解密，包括其他重写资源声明的京东 API；仅保留素材域名。
+hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.cainiao.com, -jd.com, -*.jd.com, -360buy.com, -*.360buy.com, -jdpay.com, -*.jdpay.com, -jdpaydns.com, -*.jdpaydns.com, *.360buyimg.com, c.tieba.baidu.com
 
 # MARK: -  知乎 6.62.0
 # hostname = *.zhihu.com
@@ -36,33 +37,9 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.ca
 # 通用广告请求
 ^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads url reject-200
 
-# MARK: - 京东 iOS 15.8.30（com.360buy.jdmobile / 170515）
-# 覆盖：开屏、首页浮球/浮层、右上角悬浮、搜索框下营销条、营销弹窗、
-#       直播小窗、Feed 广告、小程序广告、领券浮球、资源投放 NXView 弹窗
-# 字段依据：170515 原包 Mach-O 真实键名与调用链，详见 qx/scripts/jingdong-ads.js
-#
-# 开屏调用链（170515 实测）：
-#   +[LaunchAnimationManagerHelper launchRequestModel] 设置 functionId=start，
-#   URL = SetupManager.promotionServerUrl + "start"，默认模板以 ?functionId= 结尾，
-#   请求为 POST 表单；响应顶层字段是 images。
-#   因此按 URL 的 functionId=start 匹配是有效的；脚本会返回 {} 并打印“已屏蔽：开屏广告”。
-#
-# 已确认的本地缓存（QX 无法删除）：
-#   -[LaunchAnimationManager localAdModelArray] 读取
-#   Library/Caches/adviewModePath/startViewModel_*.data；
-#   -[LaunchAnimationManager getStartImage:] 会直接播放缓存模型。
-#   所以拦截网络后，设备上已缓存的开屏仍可能播放一次或数次。
-#   清除京东 App 缓存/重装后，规则才能阻止重新下载并缓存。
-#
-# 广告专用接口统一交给脚本处理，以便在 QX 日志中看到真实拦截记录：
-#   start / resources_delivery / resources_delivery_sdk / getShopHomeActivityInfo /
-#   getShopHomeExtendInfo / xview2Config
-# 通用响应清理只删广告字段，未命中时原样放行，不影响登录、购物车、订单、支付。
-^https?:\/\/[\w.-]*\.jd\.com\/(?:client\.action|api)(?:\?|$) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong-ads.js
-^https?:\/\/[\w.-]*\.360buy\.com\/(?:client\.action|api)(?:\?|$) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/jingdong-ads.js
+# MARK: - 京东支付兼容
+# 通用 API 与登录、订单和支付共用主机名，不参与 HTTPS 解密或响应清理。
 # 广告素材图片：只拦明确广告目录，避免商品图被 reject 成白图。
-# 已移除 m15.360buyimg.com/mobilecms/jfs：这是通用移动 CMS 图路径，
-# 170515 中存在 50 处 mobilecms/jfs 引用，继续拦截会把正常商品/活动图变白图。
 ^https?:\/\/storage\.360buyimg\.com\/.*scs_jingEgg url reject-img
 ^https?:\/\/(?:[\w-]+\.)*360buyimg\.com\/(?:ad|ads|adt|advert|advertise)\/ url reject-img
 

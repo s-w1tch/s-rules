@@ -19,6 +19,21 @@ DOMAIN-SUFFIX,max-c.com
 # 闲鱼
 DOMAIN-SUFFIX,goofish.com
 
+# 京东购物、支付与金融（独立于国内通用名单）
+DOMAIN-SUFFIX,jd.com
+DOMAIN-SUFFIX,360buy.com
+DOMAIN-SUFFIX,360buyimg.com
+DOMAIN-SUFFIX,jdpay.com
+DOMAIN-SUFFIX,jdpaydns.com
+DOMAIN-SUFFIX,jdfinance.com
+DOMAIN-SUFFIX,jdjinrong.com
+DOMAIN-SUFFIX,jingdongjinrong.com
+DOMAIN-SUFFIX,chinabank.com.cn
+DOMAIN-SUFFIX,wangyin.com
+DOMAIN-SUFFIX,baitiao.cn
+DOMAIN-SUFFIX,baitiao.com
+DOMAIN-SUFFIX,ibaitiao.com
+
 # 元气骑士
 DOMAIN-SUFFIX,chillyroom.com
 DOMAIN-SUFFIX,chillyroom.games
