@@ -7,13 +7,13 @@ log-level: info
 external-controller: 127.0.0.1:9090
 
 # DNS 策略：普通查询通过节点选择使用境外 DoH；节点及直连域名通过 DIRECT 使用国内 DoH。
+# 使用真实 IP 解析，兼容 Copilot 网页抓取与 Gitea 等服务的地址安全检查；解析模式不替代 DNS 出站策略。
 # sw1tch.men 及子域名使用境外 DoH，绕过国内解析异常；业务流量仍遵循原有分流规则。
 # 本文件不配置 TUN/DNS 劫持；Clash Party 和 OpenClash 须在各自客户端启用劫持并核对最终生效配置。
 dns:
   enable: true
   ipv6: false
-  enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
+  enhanced-mode: redir-host
   use-hosts: false
   use-system-hosts: false
   respect-rules: true
@@ -35,46 +35,6 @@ dns:
   # 直连域名也遵循专用解析策略，否则连接时仍会使用国内 DNS 重新解析。
   direct-nameserver-follow-policy: true
   fallback: []
-  fake-ip-filter-mode: blacklist
-  fake-ip-filter:
-    - +.lan
-    - +.local
-    - +.localdomain
-    - +.home.arpa
-    - +.localhost
-    - +.invalid
-    - +.test
-    - +.example
-    - time.*.com
-    - time.*.gov
-    - time.*.edu.cn
-    - time.*.apple.com
-    - time-ios.apple.com
-    - time1.*.com
-    - time2.*.com
-    - time3.*.com
-    - time4.*.com
-    - time5.*.com
-    - time6.*.com
-    - time7.*.com
-    - ntp.*.com
-    - ntp1.*.com
-    - ntp2.*.com
-    - ntp3.*.com
-    - ntp4.*.com
-    - ntp5.*.com
-    - ntp6.*.com
-    - ntp7.*.com
-    - +.pool.ntp.org
-    - +.ntp.org.cn
-    - time1.cloud.tencent.com
-    # 自有服务返回真实 IP，便于宿主机和容器访问；真实解析由上面的专用策略保证。
-    - +.sw1tch.men
-    - +.aidameng.men
-    # GitHub 使用真实 IP，避免 Gitea 等服务的地址安全检查拒绝 Fake-IP。
-    - +.github.com
-    - +.githubusercontent.com
-    - +.githubassets.com
 
 proxies: []
 proxy-groups: []
