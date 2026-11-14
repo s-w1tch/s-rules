@@ -9,6 +9,7 @@ external-controller: 127.0.0.1:9090
 # DNS 策略：普通查询通过节点选择使用境外 DoH；节点及直连域名通过 DIRECT 使用国内 DoH。
 # 使用真实 IP 解析，兼容 Copilot 网页抓取与 Gitea 等服务的地址安全检查；解析模式不替代 DNS 出站策略。
 # sw1tch.men 及子域名使用境外 DoH，绕过国内解析异常；业务流量仍遵循原有分流规则。
+# 私有域名（geosite:private，含 .lan/.local 等）交给系统 DNS，由内网路由器解析；公共 DoH 查不到这些 TLD。
 # 本文件不配置 TUN/DNS 劫持；Clash Party 和 OpenClash 须在各自客户端启用劫持并核对最终生效配置。
 dns:
   enable: true
@@ -26,6 +27,7 @@ dns:
     '+.sw1tch.men':
       - https://1.1.1.1/dns-query#🚀 节点选择
       - https://8.8.8.8/dns-query#🚀 节点选择
+    'geosite:private': system
   proxy-server-nameserver:
     - https://120.53.53.53/dns-query#DIRECT
     - https://223.5.5.5/dns-query#DIRECT
