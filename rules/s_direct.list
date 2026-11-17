@@ -56,5 +56,18 @@ DOMAIN-SUFFIX,miot-spec.org
 DOMAIN,account.xiaomi.com
 DOMAIN,cdn.cnbj1.fds.api.mi-img.com
 
+# Aqara 绿米（官网、账号、各地区云服务、设备通信、固件与视频）
+DOMAIN-SUFFIX,aqara.com
+DOMAIN-SUFFIX,aqara.cn
+DOMAIN-SUFFIX,ankasa.cn
+DOMAIN-SUFFIX,lumiunited.com
+DOMAIN-SUFFIX,lumi.ai
+DOMAIN-SUFFIX,lumi.cool
+# 韩国官网、支持与产品资料
+DOMAIN-SUFFIX,aqaralife.kr
+DOMAIN-SUFFIX,aqara.kr
+# 官网专用资源桶（不放行整个共享云存储域名）
+DOMAIN,aqara-offical-web-1300889962.cos.ap-guangzhou.myqcloud.com
+
 # 宝可梦卡牌
 DOMAIN,player-api-prod.app-41283.com
