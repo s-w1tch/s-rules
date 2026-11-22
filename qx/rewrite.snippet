@@ -48,11 +48,9 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.ca
 # 禁用tiebaads
 ^http:\/\/c\.tieba\.baidu\.com/tiebaads url reject-200
 
-# MARK: - 我嘞个豆 1.9.1（JS 1.9.21-alpha.7）
+# MARK: - 我嘞个豆 1.9.1（JS 1.9.22-alpha.46）
 # hostname = ohmybead.oss-cn-hangzhou.aliyuncs.com, spb-bp1m3z3m7v34lsb2.supabase.opentrust.net
-# 开屏广告、激励视频入口（远程审核开关）
-^https:\/\/ohmybead\.oss-cn-hangzhou\.aliyuncs\.com\/app\/production\/000\/flags\.json url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
-# 更新弹窗
+# 更新弹窗：改为静默热更新，不能屏蔽，否则旧包资源下线后卡启动图
 ^https:\/\/ohmybead\.oss-cn-hangzhou\.aliyuncs\.com\/app\/production\/000\/version\.json url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
 # 启动营销弹窗、首页公告横幅
 ^https:\/\/spb-bp1m3z3m7v34lsb2\.supabase\.opentrust\.net\/rest\/v1\/rpc\/fetch_active_announcements url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
