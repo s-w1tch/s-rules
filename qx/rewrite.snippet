@@ -54,7 +54,11 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.ca
 ^https:\/\/ohmybead\.oss-cn-hangzhou\.aliyuncs\.com\/app\/production\/000\/version\.json url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
 # 启动营销弹窗、首页公告横幅
 ^https:\/\/spb-bp1m3z3m7v34lsb2\.supabase\.opentrust\.net\/rest\/v1\/rpc\/fetch_active_announcements url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
-# 免开屏广告月卡：改写为有效，供开屏流程读取本地缓存
+# 开屏、库存分支、文件夹外观、智能豆板（仅改本地缓存生效的月卡项）
 ^https:\/\/spb-bp1m3z3m7v34lsb2\.supabase\.opentrust\.net\/rest\/v1\/rpc\/fetch_my_monthly_cards url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
+# 封面保存、截图豁免
+^https:\/\/spb-bp1m3z3m7v34lsb2\.supabase\.opentrust\.net\/rest\/v1\/rpc\/get_my_(cover_save|screenshot)_exemption url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
+# 发布证明豁免、豆板前缀授权
+^https:\/\/spb-bp1m3z3m7v34lsb2\.supabase\.opentrust\.net\/rest\/v1\/rpc\/get_my_(publish_proof_exemption|board_prefix_entitlements) url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
 # 首页信息流广告、横幅
 ^https:\/\/spb-bp1m3z3m7v34lsb2\.supabase\.opentrust\.net\/rest\/v1\/rpc\/list_home_feed_(ads|banners) url reject-array
