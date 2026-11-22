@@ -1,7 +1,7 @@
 # 自有重写规则；自写脚本位于 qx/scripts，第三方备份集中在 qx/backup。
 # hostname 为全局配置，所有域名必须合并在这一行，重复声明会互相覆盖。
 # 京东业务/支付域名排除解密，包括其他重写资源声明的京东 API；仅保留素材域名。
-hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.cainiao.com, -jd.com, -*.jd.com, -360buy.com, -*.360buy.com, -jdpay.com, -*.jdpay.com, -jdpaydns.com, -*.jdpaydns.com, *.360buyimg.com, c.tieba.baidu.com
+hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.cainiao.com, -jd.com, -*.jd.com, -360buy.com, -*.360buy.com, -jdpay.com, -*.jdpay.com, -jdpaydns.com, -*.jdpaydns.com, *.360buyimg.com, c.tieba.baidu.com, ohmybead.oss-cn-hangzhou.aliyuncs.com, spb-bp1m3z3m7v34lsb2.supabase.opentrust.net
 
 # MARK: -  知乎 6.62.0
 # hostname = *.zhihu.com
@@ -47,3 +47,14 @@ hostname = *.zhihu.com, api.xiaoheihe.cn, gql-fed.reddit.com, *.taobao.com, *.ca
 # hostname = c.tieba.baidu.com
 # 禁用tiebaads
 ^http:\/\/c\.tieba\.baidu\.com/tiebaads url reject-200
+
+# MARK: - 我嘞个豆 1.9.1（JS 1.9.21-alpha.7）
+# hostname = ohmybead.oss-cn-hangzhou.aliyuncs.com, spb-bp1m3z3m7v34lsb2.supabase.opentrust.net
+# 开屏广告、激励视频入口（远程审核开关）
+^https:\/\/ohmybead\.oss-cn-hangzhou\.aliyuncs\.com\/app\/production\/000\/flags\.json url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
+# 更新弹窗
+^https:\/\/ohmybead\.oss-cn-hangzhou\.aliyuncs\.com\/app\/production\/000\/version\.json url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
+# 启动营销弹窗、首页公告横幅
+^https:\/\/spb-bp1m3z3m7v34lsb2\.supabase\.opentrust\.net\/rest\/v1\/rpc\/fetch_active_announcements url script-response-body https://raw.githubusercontent.com/s-w1tch/s-rules/refs/heads/main/qx/scripts/wolegedou.js
+# 首页信息流广告、横幅
+^https:\/\/spb-bp1m3z3m7v34lsb2\.supabase\.opentrust\.net\/rest\/v1\/rpc\/list_home_feed_(ads|banners) url reject-array
