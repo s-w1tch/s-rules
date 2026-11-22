@@ -1,6 +1,9 @@
-# Apple 推送域名（courier/api/init 等均为 push.apple.com 子域）
-# akadns.net、edgekey.net 只是 CNAME 目标，规则只匹配请求域名，不在此列出
+# Apple 推送：国内直连无法收到 Telegram、X 等推送，须走代理
+# 参考 QuixoticHeart/rule-set loon/apns.list
+DOMAIN,identity.apple.com
 DOMAIN-SUFFIX,push.apple.com
+DOMAIN-SUFFIX,akadns.net
+DOMAIN-KEYWORD,apple.com.edgekey.net
 
 # Apple 推送 IPv4（no-resolve：避免提前解析所有域名）
 IP-CIDR,17.249.0.0/16,no-resolve
